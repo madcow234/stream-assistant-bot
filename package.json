@@ -1,0 +1,39 @@
+{
+  "name": "stream-assistant-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot to assist with live streaming actions for ScreenRoom episodes.",
+  "author": "MadCow234",
+  "license": "ISC",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "del-cli build && babel src -d build && del-cli src",
+    "start": "node build/index.js",
+    "dev-clean": "del-cli build && del-cli logs",
+    "dev-build": "del-cli build && babel src -d build",
+    "dev-start": "npm run dev-build && nodemon -r dotenv/config build/index.js"
+  },
+  "keywords": [
+    "Node.js",
+    "Discord",
+    "Heroku",
+    "bot",
+    "discord.js",
+    "streaming",
+    "assistant"
+  ],
+  "engines": {
+    "node": "14.4"
+  },
+  "dependencies": {
+    "del-cli": "^3.0.1",
+    "discord.js": "^12.2.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
