@@ -1,8 +1,9 @@
-import { buildMentionsArray } from '../services/mentionsService'
-import { assignRole }         from '../services/roleService'
-import { Message }            from 'discord.js'
-import { roles }              from '../enums'
-import log                    from 'winston'
+import { assignRole, userHasRoleForGuild } from '../services/roleService'
+import { buildMentionsArray }              from '../services/mentionsService'
+import { newErrorEmbed }                   from '../services/embedService'
+import { Message }                         from 'discord.js'
+import { roles }                           from '../enums'
+import log                                 from 'winston'
 
 /**
  * Perform setup actions before starting a live stream.
@@ -15,10 +16,15 @@ exports.run = async (message, args) => {
     try {
         log.debug(`Received command 'start' with ${args.length > 0 ? 'arguments \'' + args.join('\', \'') + '\'' : 'no arguments'}.`)
 
-        let mentionsArray = await buildMentionsArray(message.mentions)
+        if (await userHasRoleForGuild(message.author, roles.crew, message.guild)) {
+            let mentionsArray = await buildMentionsArray(message.mentions)
 
-        for (let mention of mentionsArray) {
-            await assignRole(message.guild, mention, roles.liveStreamingCast)
+            for (let mention of mentionsArray) {
+                await assignRole(message.guild, mention, roles.liveStreamingCast)
+            }
+
+        } else {
+            await message.channel.send(newErrorEmbed(`<@!${message.author.id}>, you do not have permission to use the \`start\` command!`))
         }
 
     } catch (err) {
