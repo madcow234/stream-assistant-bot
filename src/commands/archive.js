@@ -17,17 +17,19 @@ exports.run = async (message, args) => {
 
         if (await userHasRoleForGuild(message.author, ROLE.CREW, message.guild) || message.author.id === message.guild.owner.id) {
 
-            let archiveCategory = message.guild.channels.cache.find(channel => channel.type === 'category' && channel.name === 'Archives')
             let liveCategory = message.guild.channels.cache.find(channel => channel.type === 'category' && channel.name === 'Live')
+            let archiveCategory = message.guild.channels.cache.find(channel => channel.type === 'category' && channel.name === 'Archives')
 
-            let streamNotesChannel = message.guild.channels.cache.find(channel => channel.name === 'stream-notes')
+            let oldStreamNotesChannel = message.guild.channels.cache.find(channel => channel.name === 'stream-notes')
 
-            if (streamNotesChannel) {
-                await streamNotesChannel.setParent(archiveCategory.id)
-                await streamNotesChannel.setName(`${new Date().toLocaleString('default', { timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'short' })}-utc`)
+            if (oldStreamNotesChannel) {
+                oldStreamNotesChannel = await oldStreamNotesChannel.setParent(archiveCategory.id)
+                oldStreamNotesChannel = await oldStreamNotesChannel.setName(`${new Date().toLocaleString('default', { timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'short' })}-utc`)
+                await oldStreamNotesChannel.lockPermissions()
             }
 
-            await message.guild.channels.create('stream-notes', { type: 'text', parent: liveCategory.id })
+            let newStreamNotesChannel = await message.guild.channels.create('stream-notes', { type: 'text', parent: liveCategory.id })
+            await newStreamNotesChannel.lockPermissions()
 
             await message.channel.send(newActionReportEmbed(`**The stream notes have been archived.**`, ACTION.SUCCESS))
 
