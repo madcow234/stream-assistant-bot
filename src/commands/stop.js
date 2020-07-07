@@ -3,6 +3,7 @@ import { removeRole, userHasRoleForGuild }                 from '../services/rol
 import { ROLE, ACTION }                                    from '../enums'
 import { Message }                                         from 'discord.js'
 import log                                                 from 'winston'
+import {mainContext} from "../application";
 
 /**
  * Perform cleanup actions after stopping a live stream.
@@ -21,6 +22,8 @@ exports.run = async (message, args) => {
             for (let member of castRole.members.array()) {
                 await removeRole(message.guild, member.user, ROLE.CAST)
             }
+
+            await mainContext.client.user.setAvatar(`https://cdn.discordapp.com/attachments/673213456526082053/729899992596218017/StreamAssistantBotOffAvatar.png`)
 
             await message.channel.send(newLiveStreamStoppedEmbed(message.author.id))
 

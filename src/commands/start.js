@@ -2,6 +2,7 @@ import { newActionReportEmbed, newLiveStreamStartEmbed } from '../services/embed
 import { assignRole, userHasRoleForGuild }               from '../services/roleService'
 import { buildMentionsArray }                            from '../services/mentionsService'
 import { ROLE, ACTION }                                  from '../enums'
+import { mainContext }                                   from '../application'
 import { Message }                                       from 'discord.js'
 import log                                               from 'winston'
 
@@ -22,6 +23,8 @@ exports.run = async (message, args) => {
             for (let mention of mentionsArray) {
                 await assignRole(message.guild, mention, ROLE.CAST)
             }
+
+            await mainContext.client.user.setAvatar(`https://cdn.discordapp.com/attachments/673213456526082053/729899982890467368/StreamAssistantBotLiveAvatar.png`)
 
             await message.channel.send(newLiveStreamStartEmbed(mentionsArray))
 
