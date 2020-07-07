@@ -1,4 +1,4 @@
-import { roles } from '../enums'
+import { ROLE } from '../enums'
 import log       from 'winston'
 
 /**
@@ -11,7 +11,7 @@ exports.setupRolesForGuild = async (guild) => {
     try {
         log.info(`Preparing roles for guild '${guild.name}' (${guild.id}).`)
 
-        for (let role of Object.values(roles)) {
+        for (let role of Object.values(ROLE)) {
             await module.exports.createRoleIfNotExists(guild, role)
         }
 

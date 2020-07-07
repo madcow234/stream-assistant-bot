@@ -1,9 +1,9 @@
-import { assignRole, userHasRoleForGuild } from '../services/roleService'
-import { buildMentionsArray }              from '../services/mentionsService'
-import { newErrorEmbed }                   from '../services/embedService'
-import { Message }                         from 'discord.js'
-import { roles }                           from '../enums'
-import log                                 from 'winston'
+import { newActionReportEmbed, newLiveStreamStartEmbed } from '../services/embedService'
+import { assignRole, userHasRoleForGuild }               from '../services/roleService'
+import { buildMentionsArray }                            from '../services/mentionsService'
+import { ROLE, ACTION }                                  from '../enums'
+import { Message }                                       from 'discord.js'
+import log                                               from 'winston'
 
 /**
  * Perform setup actions before starting a live stream.
@@ -16,15 +16,17 @@ exports.run = async (message, args) => {
     try {
         log.debug(`Received command 'start' with ${args.length > 0 ? 'arguments \'' + args.join('\', \'') + '\'' : 'no arguments'}.`)
 
-        if (await userHasRoleForGuild(message.author, roles.crew, message.guild)) {
+        if (await userHasRoleForGuild(message.author, ROLE.CREW, message.guild)) {
             let mentionsArray = await buildMentionsArray(message.mentions)
 
             for (let mention of mentionsArray) {
-                await assignRole(message.guild, mention, roles.liveStreamingCast)
+                await assignRole(message.guild, mention, ROLE.CAST)
             }
 
+            await message.channel.send(newLiveStreamStartEmbed(mentionsArray))
+
         } else {
-            await message.channel.send(newErrorEmbed(`<@!${message.author.id}>, you do not have permission to use the \`start\` command!`))
+            await message.channel.send(newActionReportEmbed(`<@!${message.author.id}>, you do not have permission to use the \`start\` command!`, ACTION.ERROR))
         }
 
     } catch (err) {
