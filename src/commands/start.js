@@ -17,7 +17,7 @@ exports.run = async (message, args) => {
     try {
         log.debug(`Received command 'start' with ${args.length > 0 ? 'arguments \'' + args.join('\', \'') + '\'' : 'no arguments'}.`)
 
-        if (await userHasRoleForGuild(message.author, ROLE.CREW, message.guild)) {
+        if (await userHasRoleForGuild(message.author, ROLE.CREW, message.guild) || message.author.id === message.guild.owner.id) {
             let mentionsArray = await buildMentionsArray(message.mentions)
 
             for (let mention of mentionsArray) {
