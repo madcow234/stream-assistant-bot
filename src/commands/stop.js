@@ -1,9 +1,9 @@
 import { newActionReportEmbed, newLiveStreamStoppedEmbed } from '../services/embedService'
 import { removeRole, userHasRoleForGuild }                 from '../services/roleService'
 import { ROLE, ACTION }                                    from '../enums'
+import { mainContext }                                     from '../application'
 import { Message }                                         from 'discord.js'
 import log                                                 from 'winston'
-import {mainContext} from "../application";
 
 /**
  * Perform cleanup actions after stopping a live stream.
