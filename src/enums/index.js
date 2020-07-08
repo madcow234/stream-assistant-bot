@@ -1,7 +1,36 @@
 exports.ROLE = {
-    CAST : "🔴 Streaming (Cast) 🔴",
-    GUESTS: "🔴 Streaming (Guests) 🔴",
-    CREW: "Crew"
+    CAST : '🔴 Streaming (Cast) 🔴',
+    GUESTS: '🔴 Streaming (Guests) 🔴',
+    CREW: 'Crew'
+}
+
+exports.CHANNEL = {
+    CATEGORY: {
+        LIVE: {
+            NAME: 'Live',
+            PARENT: null
+        },
+        ARCHIVES: {
+            NAME: 'Archives',
+            PARENT: null
+        }
+    },
+    TEXT: {
+        STREAM_NOTES: {
+            NAME: 'stream-notes',
+            PARENT: 'Live'
+        }
+    },
+    VOICE: {
+        STAGING: {
+            NAME: 'Staging',
+            PARENT: 'Live'
+        },
+        STREAMING: {
+            NAME: '🔴 Streaming 🔴',
+            PARENT: 'Live'
+        }
+    }
 }
 
 exports.EMBED = {
