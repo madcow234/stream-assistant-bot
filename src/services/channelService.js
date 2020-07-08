@@ -38,7 +38,7 @@ exports.setupChannelsForGuild = async (guild) => {
 exports.createChannelIfNotExists = async (guild, channelName, channelType, parentName) => {
     try {
         log.debug(`Checking guild '${guild.name}' (${guild.id}) for channel '${channelName}'.`)
-        let channel = guild.channels.cache.find(channel => channel.type === channelType && channel.name === channelName)
+        let channel = guild.channels.cache.find(channel => channel.type === channelType.toLowerCase() && channel.name === channelName)
 
         if (!channel) {
             log.debug(`Channel '${channelName}' does not exist for guild '${guild.name}' (${guild.id})... creating now.`)
