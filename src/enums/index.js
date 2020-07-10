@@ -1,3 +1,5 @@
+import { mainContext } from '../application'
+
 exports.ROLE = {
     CAST : '🔴 Streaming (Cast) 🔴',
     GUESTS: '🔴 Streaming (Guests) 🔴',
@@ -8,11 +10,42 @@ exports.CHANNEL = {
     CATEGORY: {
         LIVE: {
             NAME: 'Live',
-            PARENT: null
+            PERMISSIONS: [
+                {
+                    ROLE: mainContext.application_name,
+                    ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL']
+                },
+                {
+                    ROLE: 'Crew',
+                    ALLOW: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS',
+                            'ADD_REACTIONS', 'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS']
+                },
+                {
+                    ROLE: '@everyone',
+                    DENY: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES',
+                           'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS',
+                           'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'PRIORITY_SPEAKER']
+                }
+            ]
         },
         ARCHIVES: {
             NAME: 'Archives',
-            PARENT: null
+            PERMISSIONS: [
+                {
+                    ROLE: mainContext.application_name,
+                    ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL']
+                },
+                {
+                    ROLE: 'Crew',
+                    ALLOW: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY']
+                },
+                {
+                    ROLE: '@everyone',
+                    DENY: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES',
+                           'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS',
+                           'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'PRIORITY_SPEAKER']
+                }
+            ]
         }
     },
     TEXT: {
@@ -28,7 +61,28 @@ exports.CHANNEL = {
         },
         STREAMING: {
             NAME: '🔴 Streaming 🔴',
-            PARENT: 'Live'
+            PARENT: 'Live',
+            PERMISSIONS: [
+                {
+                    ROLE: mainContext.application_name,
+                    ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL']
+                },
+                {
+                    ROLE: '🔴 Streaming (Cast) 🔴',
+                    ALLOW: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'PRIORITY_SPEAKER']
+                },
+                {
+                    ROLE: '🔴 Streaming (Guests) 🔴',
+                    DENY: ['USE_VAD'],
+                    ALLOW: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK']
+                },
+                {
+                    ROLE: '@everyone',
+                    DENY: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES',
+                           'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS',
+                           'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'PRIORITY_SPEAKER']
+                }
+            ]
         }
     }
 }

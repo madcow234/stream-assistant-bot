@@ -37,5 +37,6 @@ exports.initApplication = async () => {
  * A global context object for the application.
  */
 exports.mainContext = {
-    client: new Client()
+    client: new Client(),
+    application_name: process.env.NODE_ENV === 'production' ? 'Stream Assistant' : 'Stream Assistant (dev)'
 };
