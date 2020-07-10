@@ -21,17 +21,18 @@ exports.run = async (message, args) => {
             let archiveCategory = message.guild.channels.cache.find(channel => channel.type === 'category' && channel.name === 'Archives')
 
             let oldStreamNotesChannel = message.guild.channels.cache.find(channel => channel.name === 'stream-notes')
+            let oldStreamNotesChannelName = new Date().toLocaleString('default', { timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'short' })
 
             if (oldStreamNotesChannel) {
                 oldStreamNotesChannel = await oldStreamNotesChannel.setParent(archiveCategory.id)
-                oldStreamNotesChannel = await oldStreamNotesChannel.setName(`${new Date().toLocaleString('default', { timeZone: 'UTC', dateStyle: 'medium', timeStyle: 'short' })}-utc`)
+                oldStreamNotesChannel = await oldStreamNotesChannel.setName(`${oldStreamNotesChannelName}-utc`)
                 await oldStreamNotesChannel.lockPermissions()
             }
 
             let newStreamNotesChannel = await message.guild.channels.create('stream-notes', { type: 'text', parent: liveCategory.id })
             await newStreamNotesChannel.lockPermissions()
 
-            await message.channel.send(newActionReportEmbed(`**The stream notes have been archived.**`, ACTION.SUCCESS))
+            await message.channel.send(newActionReportEmbed(`**The stream notes for ${oldStreamNotesChannelName} UTC have been archived by <@!${message.author.id}>.\n\nView the archive: <#${oldStreamNotesChannel.id}>**`, ACTION.SUCCESS))
 
         } else {
             await message.channel.send(newActionReportEmbed(`<@!${message.author.id}>, you do not have permission to use the \`archive\` command!`, ACTION.ERROR))
