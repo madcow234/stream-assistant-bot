@@ -17,16 +17,16 @@ exports.run = async (message, args) => {
     try {
         log.debug(`Received command 'start' with ${args.length > 0 ? 'arguments \'' + args.join('\', \'') + '\'' : 'no arguments'}.`)
 
-        if (await userHasRoleForGuild(message.author, ROLE.CREW, message.guild) || message.author.id === message.guild.owner.id) {
+        if (await userHasRoleForGuild(message.author, ROLE.CREW.NAME, message.guild) || message.author.id === message.guild.owner.id) {
             let mentionsArray = await buildMentionsArray(message.mentions)
 
             for (let mention of mentionsArray) {
-                await assignRole(message.guild, mention, ROLE.CAST)
+                await assignRole(message.guild, mention, ROLE.CAST.NAME)
             }
 
-            await mainContext.client.user.setAvatar(`https://cdn.discordapp.com/attachments/673213456526082053/729899982890467368/StreamAssistantBotLiveAvatar.png`)
-
             await message.channel.send(newLiveStreamStartEmbed(mentionsArray))
+
+            await mainContext.client.user.setAvatar(`https://cdn.discordapp.com/attachments/673213456526082053/729899982890467368/StreamAssistantBotLiveAvatar.png`)
 
         } else {
             await message.channel.send(newActionReportEmbed(`<@!${message.author.id}>, you do not have permission to use the \`start\` command!`, ACTION.ERROR))

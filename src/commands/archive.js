@@ -15,7 +15,7 @@ exports.run = async (message, args) => {
     try {
         log.debug(`Received command 'archive' with ${args.length > 0 ? 'arguments \'' + args.join('\', \'') + '\'' : 'no arguments'}.`)
 
-        if (await userHasRoleForGuild(message.author, ROLE.CREW, message.guild) || message.author.id === message.guild.owner.id) {
+        if (await userHasRoleForGuild(message.author, ROLE.CREW.NAME, message.guild) || message.author.id === message.guild.owner.id) {
 
             let liveCategory = message.guild.channels.cache.find(channel => channel.type === 'category' && channel.name === 'Live')
             let archiveCategory = message.guild.channels.cache.find(channel => channel.type === 'category' && channel.name === 'Archives')

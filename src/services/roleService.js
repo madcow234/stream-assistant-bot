@@ -1,5 +1,5 @@
 import { ROLE } from '../enums'
-import log       from 'winston'
+import log      from 'winston'
 
 /**
  * Prepares a {@link Guild} with all configured {@link Role}s.
@@ -12,7 +12,7 @@ exports.setupRolesForGuild = async (guild) => {
         log.info(`Preparing roles for guild '${guild.name}' (${guild.id}).`)
 
         for (let role of Object.values(ROLE)) {
-            await module.exports.createRoleIfNotExists(guild, role)
+            await module.exports.createRoleIfNotExists(guild, role.NAME, role.COLOR, role.HOIST)
         }
 
         log.info(`Successfully prepared all roles for guild '${guild.name}' (${guild.id}).`)
@@ -29,16 +29,18 @@ exports.setupRolesForGuild = async (guild) => {
  *
  * @param guild the {@link Guild} to update
  * @param roleName the name of the {@link Role} to create
+ * @param roleColor the color to set the {@link Role} to
+ * @param hoist true if the {@link Role} should be displayed as a separate category
  * @returns {Promise<Boolean>} true if {@link Role} was created, false if not
  */
-exports.createRoleIfNotExists = async (guild, roleName) => {
+exports.createRoleIfNotExists = async (guild, roleName, roleColor, hoist) => {
     try {
         log.debug(`Checking guild '${guild.name}' (${guild.id}) for role '${roleName}'.`)
         let role = guild.roles.cache.find(role => role.name === roleName)
 
         if (!role) {
             log.debug(`Role '${roleName}' does not exist for guild '${guild.name}' (${guild.id})... creating now.`)
-            await guild.roles.create( { data: { name: roleName } } )
+            await guild.roles.create( { data: { name: roleName, color: roleColor, hoist: hoist } } )
             log.info(`Successfully created '${roleName}' role for guild '${guild.name}' (${guild.id}).`)
 
         } else {

@@ -1,9 +1,21 @@
 import { mainContext } from '../application'
 
 exports.ROLE = {
-    CAST : '🔴 Streaming (Cast) 🔴',
-    GUESTS: '🔴 Streaming (Guests) 🔴',
-    CREW: 'Crew'
+    CAST : {
+        NAME: '🔴 Streaming (Cast) 🔴',
+        COLOR: 'RED',
+        HOIST: true
+    },
+    GUESTS: {
+        NAME: '🔴 Streaming (Guests) 🔴',
+        COLOR: 'DARK_RED',
+        HOIST: true
+    },
+    CREW: {
+        NAME: 'Crew',
+        COLOR: 'BLUE',
+        HOIST: false
+    }
 }
 
 exports.CHANNEL = {
