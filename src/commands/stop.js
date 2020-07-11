@@ -1,7 +1,6 @@
 import { newActionReportEmbed, newLiveStreamStoppedEmbed } from '../services/embedService'
 import { removeRole, userHasRoleForGuild }                 from '../services/roleService'
 import { ROLE, ACTION }                                    from '../enums'
-import { mainContext }                                     from '../application'
 import { Message }                                         from 'discord.js'
 import log                                                 from 'winston'
 
@@ -24,8 +23,6 @@ exports.run = async (message, args) => {
             }
 
             await message.channel.send(newLiveStreamStoppedEmbed(message.author.id))
-
-            await mainContext.client.user.setAvatar(`https://cdn.discordapp.com/attachments/673213456526082053/729899992596218017/StreamAssistantBotOffAvatar.png`)
 
         } else {
             await message.channel.send(newActionReportEmbed(`<@!${message.author.id}>, you do not have permission to use the \`stop\` command!`, ACTION.ERROR))
