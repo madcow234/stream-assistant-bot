@@ -14,7 +14,7 @@ exports.ROLE = {
     CREW: {
         NAME: 'Crew',
         COLOR: 'BLUE',
-        HOIST: false
+        HOIST: true
     }
 }
 
