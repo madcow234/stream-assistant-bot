@@ -16,11 +16,11 @@ exports.run = async (message, args) => {
     try {
         log.debug(`Received command 'start' with ${args.length > 0 ? 'arguments \'' + args.join('\', \'') + '\'' : 'no arguments'}.`)
 
-        if (await userHasRoleForGuild(message.author, ROLE.CREW.NAME, message.guild) || message.author.id === message.guild.owner.id) {
+        if (await userHasRoleForGuild(message.author, ROLE.CAST.NAME, message.guild) || message.author.id === message.guild.owner.id) {
             let mentionsArray = await buildMentionsArray(message.mentions)
 
             for (let mention of mentionsArray) {
-                await assignRole(message.guild, mention, ROLE.CAST.NAME)
+                await assignRole(message.guild, mention, ROLE.STREAMING_CAST.NAME)
             }
 
             await message.channel.send(newLiveStreamStartEmbed(mentionsArray))

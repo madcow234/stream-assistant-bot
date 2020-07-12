@@ -1,19 +1,19 @@
 import { mainContext } from '../application'
 
 exports.ROLE = {
-    CAST : {
+    CAST: {
+        NAME: 'Cast',
+        COLOR: 'BLUE',
+        HOIST: true
+    },
+    STREAMING_CAST: {
         NAME: '🔴 Streaming (Cast) 🔴',
         COLOR: 'RED',
         HOIST: true
     },
-    GUESTS: {
+    STREAMING_GUESTS: {
         NAME: '🔴 Streaming (Guests) 🔴',
         COLOR: 'DARK_RED',
-        HOIST: true
-    },
-    CREW: {
-        NAME: 'Crew',
-        COLOR: 'BLUE',
         HOIST: true
     }
 }
@@ -28,7 +28,7 @@ exports.CHANNEL = {
                     ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL']
                 },
                 {
-                    ROLE: 'Crew',
+                    ROLE: exports.ROLE.CAST.NAME,
                     ALLOW: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'USE_EXTERNAL_EMOJIS',
                             'ADD_REACTIONS', 'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS']
                 },
@@ -48,7 +48,7 @@ exports.CHANNEL = {
                     ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL']
                 },
                 {
-                    ROLE: 'Crew',
+                    ROLE: exports.ROLE.CAST.NAME,
                     ALLOW: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY']
                 },
                 {
@@ -80,11 +80,11 @@ exports.CHANNEL = {
                     ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL']
                 },
                 {
-                    ROLE: '🔴 Streaming (Cast) 🔴',
+                    ROLE: exports.ROLE.STREAMING_CAST.NAME,
                     ALLOW: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'PRIORITY_SPEAKER']
                 },
                 {
-                    ROLE: '🔴 Streaming (Guests) 🔴',
+                    ROLE: exports.ROLE.STREAMING_GUESTS.NAME,
                     DENY: ['USE_VAD'],
                     ALLOW: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK']
                 },

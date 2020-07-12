@@ -15,11 +15,11 @@ exports.run = async (message, args) => {
     try {
         log.debug(`Received command 'stop' with ${args.length > 0 ? 'arguments \'' + args.join('\', \'') + '\'' : 'no arguments'}.`)
 
-        if (await userHasRoleForGuild(message.author, ROLE.CREW.NAME, message.guild) || message.author.id === message.guild.owner.id) {
-            let castRole = message.guild.roles.cache.find(role => role.name === ROLE.CAST.NAME)
+        if (await userHasRoleForGuild(message.author, ROLE.CAST.NAME, message.guild) || message.author.id === message.guild.owner.id) {
+            let castRole = message.guild.roles.cache.find(role => role.name === ROLE.STREAMING_CAST.NAME)
 
             for (let member of castRole.members.array()) {
-                await removeRole(message.guild, member.user, ROLE.CAST.NAME)
+                await removeRole(message.guild, member.user, ROLE.STREAMING_CAST.NAME)
             }
 
             await message.channel.send(newLiveStreamStoppedEmbed(message.author.id))
