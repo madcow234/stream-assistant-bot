@@ -1,11 +1,6 @@
 import { mainContext } from '../application'
 
 exports.ROLE = {
-    CAST: {
-        NAME: 'Cast',
-        COLOR: 'BLUE',
-        HOIST: true
-    },
     STREAMING_CAST: {
         NAME: '🔴 Streaming (Cast) 🔴',
         COLOR: 'RED',
@@ -14,6 +9,36 @@ exports.ROLE = {
     STREAMING_GUESTS: {
         NAME: '🔴 Streaming (Guests) 🔴',
         COLOR: 'DARK_RED',
+        HOIST: true
+    },
+    CAST: {
+        NAME: 'Cast',
+        COLOR: 'LUMINOUS_VIVID_PINK',
+        HOIST: true
+    },
+    SPECIAL_GUESTS: {
+        NAME: 'Special Guests',
+        COLOR: 'DARK_PURPLE',
+        HOIST: true
+    },
+    GUESTS: {
+        NAME: 'Guests',
+        COLOR: 'DARK_AQUA',
+        HOIST: true
+    },
+    MODS: {
+        NAME: 'Moderators',
+        COLOR: 'GOLD',
+        HOIST: true
+    },
+    CREW: {
+        NAME: 'Crew',
+        COLOR: 'DARK_BLUE',
+        HOIST: true
+    },
+    SUBSCRIBERS: {
+        NAME: 'Subscribers',
+        COLOR: 'DARK_GREEN',
         HOIST: true
     }
 }
