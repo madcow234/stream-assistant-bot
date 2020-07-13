@@ -1,6 +1,6 @@
 import { newActionReportEmbed, newLiveStreamStoppedEmbed } from '../services/embedService'
-import { removeRole, userHasRoleForGuild }                 from '../services/roleService'
-import {ROLE, ACTION, CHANNEL} from '../enums'
+import { assignRole, removeRole, userHasRoleForGuild }     from '../services/roleService'
+import { ROLE, ACTION, CHANNEL }                           from '../enums'
 import { Message }                                         from 'discord.js'
 import log                                                 from 'winston'
 
@@ -21,6 +21,7 @@ exports.run = async (message, args) => {
 
             for (let guildMember of streamingChannel.members.array()) {
                 if (await userHasRoleForGuild(guildMember.user, ROLE.STREAMING_CAST.NAME, message.guild)) {
+                    await assignRole(message.guild, guildMember.user, ROLE.RETROSPECTIVE.NAME)
                     await guildMember.voice.setChannel(retrospectiveChannel.id, 'The stream has ended, time for retrospective!')
 
                 } else {
