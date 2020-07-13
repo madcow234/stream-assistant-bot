@@ -17,6 +17,10 @@ exports.run = async () => {
             await setupChannelsForGuild(guild)
         }
 
+        let activityType = 'LISTENING'
+        let activityText = `${process.env.PREFIX} commands`
+
+        await mainContext.client.user.setActivity(activityText, {type: activityType})
 
     } catch (err) {
         log.error(`[/events/ready#run] ${err}`)
