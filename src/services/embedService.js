@@ -20,6 +20,14 @@ exports.newActionReportEmbed = (description, action) => {
         .setTimestamp()
 }
 
+exports.newLiveStreamPrepEmbed = (mentions, started, oneMember) => {
+    return new MessageEmbed()
+        .setDescription(`**${started ? 'Screen Room has started preparation for a new stream' : `${oneMember ? 'Another cast member has' : 'More cast members have'} been added to tonight's stream`}!\n\n${started ? 'Members' : 'Welcome'}:**\n\n${mentions.join('\n\n')}`)
+        .setThumbnail(EMBED.THUMBNAIL.LOADING)
+        .setColor('ORANGE')
+        .setTimestamp()
+}
+
 exports.newLiveStreamStartEmbed = (castMentions) => {
     return new MessageEmbed()
         .setDescription(`**A new live stream has started!\n\nCast:**\n\n${castMentions.join('\n\n')}\n\n**Watch on [Twitch](https://www.twitch.tv/screenroom)!**`)

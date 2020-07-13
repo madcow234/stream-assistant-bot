@@ -11,6 +11,11 @@ exports.ROLE = {
         COLOR: 'DARK_RED',
         HOIST: true
     },
+    PREPARING: {
+        NAME: 'Preparing For Stream',
+        COLOR: 'ORANGE',
+        HOIST: true
+    },
     CAST: {
         NAME: 'Cast',
         COLOR: 'LUMINOUS_VIVID_PINK',
@@ -94,7 +99,47 @@ exports.CHANNEL = {
     VOICE: {
         STAGING: {
             NAME: 'Staging',
-            PARENT: 'Live'
+            PARENT: 'Live',
+            PERMISSIONS: [
+                {
+                    ROLE: mainContext.application_name,
+                    ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL', 'MOVE_MEMBERS']
+                },
+                {
+                    ROLE: exports.ROLE.CAST.NAME,
+                    ALLOW: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'PRIORITY_SPEAKER']
+                },
+                {
+                    ROLE: exports.ROLE.PREPARING.NAME,
+                    DENY: ['VIEW_CHANNEL']
+                },
+                {
+                    ROLE: '@everyone',
+                    DENY: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES',
+                        'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS',
+                        'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'PRIORITY_SPEAKER']
+                }
+            ]
+        },
+        PREPARING: {
+            NAME: 'Preparing',
+            PARENT: 'Live',
+            PERMISSIONS: [
+                {
+                    ROLE: mainContext.application_name,
+                    ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL', 'MOVE_MEMBERS']
+                },
+                {
+                    ROLE: exports.ROLE.PREPARING.NAME,
+                    ALLOW: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'STREAM']
+                },
+                {
+                    ROLE: '@everyone',
+                    DENY: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES',
+                        'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS',
+                        'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'PRIORITY_SPEAKER']
+                }
+            ]
         },
         STREAMING: {
             NAME: '🔴 Streaming 🔴',
@@ -102,7 +147,7 @@ exports.CHANNEL = {
             PERMISSIONS: [
                 {
                     ROLE: mainContext.application_name,
-                    ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL']
+                    ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL', 'MOVE_MEMBERS']
                 },
                 {
                     ROLE: exports.ROLE.STREAMING_CAST.NAME,
@@ -128,6 +173,7 @@ exports.EMBED = {
     THUMBNAIL: {
         SUCCESS: 'https://cdn.discordapp.com/attachments/673213456526082053/729887363286695998/success.gif',
         ERROR: 'https://cdn.discordapp.com/attachments/673213456526082053/682402598724436032/general_error.gif',
+        LOADING: 'https://cdn.discordapp.com/attachments/673213456526082053/732021537632288768/loading.gif',
         LIVE: 'https://cdn.discordapp.com/attachments/673213456526082053/729886822477463572/on-air.gif',
         STOP: 'https://cdn.discordapp.com/attachments/673213456526082053/729885862510198854/stream-stopped.gif'
     }

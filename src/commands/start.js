@@ -1,7 +1,7 @@
 import { newActionReportEmbed, newLiveStreamStartEmbed } from '../services/embedService'
-import { assignRole, userHasRoleForGuild }               from '../services/roleService'
+import { assignRole, userHasRoleForGuild, removeRole }   from '../services/roleService'
 import { buildMentionsArray }                            from '../services/mentionsService'
-import { ROLE, ACTION }                                  from '../enums'
+import { ROLE, ACTION, CHANNEL }                         from '../enums'
 import { Message }                                       from 'discord.js'
 import log                                               from 'winston'
 
@@ -19,11 +19,34 @@ exports.run = async (message, args) => {
         if (await userHasRoleForGuild(message.author, ROLE.CAST.NAME, message.guild) || message.author.id === message.guild.owner.id) {
             let mentionsArray = await buildMentionsArray(message.mentions)
 
-            for (let mention of mentionsArray) {
-                await assignRole(message.guild, mention, ROLE.STREAMING_CAST.NAME)
+            let role = message.guild.roles.cache.find(role => role.name === ROLE.PREPARING.NAME)
+
+            for (let member of role.members.array()) {
+                mentionsArray.push(member.user)
             }
 
-            await message.channel.send(newLiveStreamStartEmbed(mentionsArray))
+            let preparingChannel = message.guild.channels.cache.find(channel => channel.name === CHANNEL.VOICE.PREPARING.NAME)
+            let preparingUsersArray = preparingChannel.members.array()
+
+            let notPreparingUsers = mentionsArray.filter(x => !preparingUsersArray.find((user => user.id === x.id)))
+
+            if (notPreparingUsers.length === 0) {
+                let streamingChannel = message.guild.channels.cache.find(channel => channel.name === CHANNEL.VOICE.STREAMING.NAME)
+
+                for (let mention of mentionsArray) {
+                    await assignRole(message.guild, mention, ROLE.STREAMING_CAST.NAME)
+                    await removeRole(message.guild, mention, ROLE.PREPARING.NAME)
+
+                    let guildMember = message.guild.members.cache.find(member => member.user.id === mention.id)
+
+                    await guildMember.voice.setChannel(streamingChannel.id, 'The live stream has started!')
+                }
+
+                await message.channel.send(newLiveStreamStartEmbed(mentionsArray))
+
+            } else {
+                await message.channel.send(newActionReportEmbed(`**The following cast members are not yet prepared to stream:**\n\n${notPreparingUsers.join('\n\n')}`, ACTION.ERROR))
+            }
 
         } else {
             await message.channel.send(newActionReportEmbed(`<@!${message.author.id}>, you do not have permission to use the \`start\` command!`, ACTION.ERROR))
