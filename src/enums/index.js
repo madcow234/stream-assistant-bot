@@ -16,6 +16,10 @@ exports.ROLE = {
         COLOR: 'ORANGE',
         HOIST: true
     },
+    RETROSPECTIVE: {
+        NAME: 'Retrospective',
+        HOIST: false
+    },
     CAST: {
         NAME: 'Cast',
         COLOR: 'LUMINOUS_VIVID_PINK',
@@ -165,7 +169,27 @@ exports.CHANNEL = {
                            'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'PRIORITY_SPEAKER']
                 }
             ]
-        }
+        },
+        RETROSPECTIVE: {
+            NAME: 'Retrospective',
+            PARENT: 'Live',
+            PERMISSIONS: [
+                {
+                    ROLE: mainContext.application_name,
+                    ALLOW: ['MANAGE_CHANNELS', 'MANAGE_ROLES', 'VIEW_CHANNEL', 'MOVE_MEMBERS']
+                },
+                {
+                    ROLE: exports.ROLE.RETROSPECTIVE.NAME,
+                    ALLOW: ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'STREAM']
+                },
+                {
+                    ROLE: '@everyone',
+                    DENY: ['CREATE_INSTANT_INVITE', 'MANAGE_CHANNELS', 'MANAGE_ROLES', 'MANAGE_WEBHOOKS', 'VIEW_CHANNEL', 'SEND_MESSAGES', 'SEND_TTS_MESSAGES',
+                        'MANAGE_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY', 'MENTION_EVERYONE', 'USE_EXTERNAL_EMOJIS', 'ADD_REACTIONS',
+                        'CONNECT', 'SPEAK', 'STREAM', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS', 'MOVE_MEMBERS', 'USE_VAD', 'PRIORITY_SPEAKER']
+                }
+            ]
+        },
     }
 }
 
