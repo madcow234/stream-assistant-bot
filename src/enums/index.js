@@ -197,7 +197,8 @@ exports.EMBED = {
     THUMBNAIL: {
         SUCCESS: 'https://cdn.discordapp.com/attachments/673213456526082053/729887363286695998/success.gif',
         ERROR: 'https://cdn.discordapp.com/attachments/673213456526082053/682402598724436032/general_error.gif',
-        LOADING: 'https://cdn.discordapp.com/attachments/673213456526082053/732021537632288768/loading.gif',
+        LOADING: 'https://cdn.discordapp.com/attachments/673213456526082053/732340940265488494/loading.gif',
+        PREPARING: 'https://cdn.discordapp.com/attachments/673213456526082053/732341665204797510/preparing.gif',
         LIVE: 'https://cdn.discordapp.com/attachments/673213456526082053/729886822477463572/on-air.gif',
         STOP: 'https://cdn.discordapp.com/attachments/673213456526082053/729885862510198854/stream-stopped.gif'
     }
