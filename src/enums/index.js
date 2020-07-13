@@ -27,7 +27,7 @@ exports.ROLE = {
     },
     SPECIAL_GUESTS: {
         NAME: 'Special Guests',
-        COLOR: 'DARK_PURPLE',
+        COLOR: 'PURPLE',
         HOIST: true
     },
     GUESTS: {
