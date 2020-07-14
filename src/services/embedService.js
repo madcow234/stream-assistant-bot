@@ -43,3 +43,11 @@ exports.newLiveStreamStoppedEmbed = (userId) => {
         .setColor('GREEN')
         .setTimestamp()
 }
+
+exports.newLiveStreamCancelledEmbed = (userId) => {
+    return new MessageEmbed()
+        .setDescription(`**The current stream has been cancelled by <@!${userId}>!\n\nStay tuned for more information.**`)
+        .setThumbnail(EMBED.THUMBNAIL.STOP)
+        .setColor('RED')
+        .setTimestamp()
+}
