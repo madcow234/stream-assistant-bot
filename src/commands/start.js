@@ -45,7 +45,7 @@ exports.run = async (message, args) => {
                 await message.channel.send(newLiveStreamStartEmbed(mentionsArray))
 
             } else {
-                await message.channel.send(newActionReportEmbed(`**The following cast members are not yet prepared to stream:**\n\n${notPreparingUsers.join('\n\n')}`, ACTION.ERROR))
+                await message.channel.send(newActionReportEmbed(`**The following cast members are not yet prepared to stream:\n\n${notPreparingUsers.join('\n\n')}\n\nPlease join the Preparing voice channel.**`, ACTION.ERROR))
             }
 
         } else {
